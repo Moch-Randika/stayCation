@@ -2,13 +2,13 @@
 const mongoose = require('mongoose');
 
 // create table category
-const categorySchema = mongoose.Schema({
+const imageSchema = mongoose.Schema({
 
-    name:{
+    imageUrl:{
         type: String,
         required: true
     }
 
 })
 
-module.exports = mongoose.model("Category", categorySchema)
+module.exports = mongoose.model("Images", imageSchema)
