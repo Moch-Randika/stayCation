@@ -67,6 +67,7 @@
 <!-- Bootstrap 5 -->
 <script src="/public/assets/js/bootstrap.min.js"></script>
 
+
 <!-- Core plugin JavaScript-->
 <script src="/sb-admin-2/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -80,6 +81,13 @@
 <!-- Page level custom scripts -->
 <script src="/sb-admin-2/js/demo/datatables-demo.js"></script>
 
+
+<!-- Modal -->
+<script>
+  $('#dataTable').on('click', '.button-edit', function () {
+    $('#edit-modal').modal('show');
+  })
+</script>
 </body>
 
 </html>

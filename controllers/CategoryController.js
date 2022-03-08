@@ -1,11 +1,26 @@
-// controllers Dashboard
+// controllers Category
+
+// import 
+const Category = require("../models/Category")
 
 
 
 // function 
-    exports.indexCategory = (request,response) => {
+    exports.indexCategory = async (request,response) => {
 
-        response.render("admin/category/index")
+        // find data
+           const data  = await Category.find();
+        
+        response.render("admin/category/index", {categories : data})
+    }
+
+    exports.addCategory = async (request,response) => {
+
+           
+        const name = request.body.name;     
+        // create data ..   
+        await Category.create({ name });
+        response.redirect("/admin/category");
     }
 
 
