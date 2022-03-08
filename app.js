@@ -1,15 +1,18 @@
+/** ----------------------------------------------------- */
+// import
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts');
-
+const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
 
-
+/** ----------------------------------------------------- */
+// inisiasi
 const app = express();
 
 // view engine setup
@@ -21,12 +24,24 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public",express.static(path.join(__dirname, '/public')));
 app.use("/sb-admin-2",express.static(path.join(__dirname, '/node_modules/startbootstrap-sb-admin-2')));
 app.use(expressLayouts);
 
 
 
+/** ----------------------------------------------------- */
+// connect database
+  mongoose.connect('mongodb://localhost:27017/db_stayCation').then(
+    () => { console.info("database connect") },
+    err => { console.info("database error") }
+  )
+
+
+
+
+/** ----------------------------------------------------- */
+// routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
