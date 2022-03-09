@@ -1,6 +1,9 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add-modal">
+            <i class="fas fa-plus"></i> Add
+        </button>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -11,10 +14,70 @@
                         <th>Name Bank</th>
                         <th>Nomor Rekening</th>
                         <th>Name</th>
+                        <th>image</th>
                         <th>action</th>
                     </tr>
+                <tbody>
+                    <!--data Category-->
+                    <% banks.forEach( (bank,index) => { %>
+                    <tr>
+                        <td> <%= index + 1 %> </td>
+                        <td> <%= bank.nameBank %> </td>
+                        <td> <%= bank.nomorRekening %> </td>
+                        <td> <%= bank.name %> </td>
+                        <td> <img src="/public/<%= bank.imageUrl %> " alt="<%= bank.imageUrl  %>" width="60px"
+                                height="60px"> </td>
+                        <td>
+                            <a href="javascript:void()" class="btn btn-warning btn-circle btn-sm  button-edit"
+                                data-id="<%= bank.id %>" data-name="<%= bank.name %> "><i class="fas fa-edit"></i></a>
+                            <a href="javascript:void()" class="btn btn-danger btn-circle btn-sm button-delete"
+                                data-id="<%= bank.id %>" data-name="<%= bank.name %> "><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
                 </thead>
             </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal add Bank-->
+<div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Bank</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin/bank" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nameBank" class="form-label">Name Bank</label>
+                        <input type="text" class="form-control" id="nameBank" name="nameBank"
+                            placeholder="Enter text..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nomorRekening" class="form-label">Nomor Rekening</label>
+                        <input type="text" class="form-control" id="nomorRekening" name="nomorRekening"
+                            placeholder="Enter text..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter text..."
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageUrl" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="imageUrl" name="imageUrl" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

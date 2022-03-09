@@ -25,8 +25,10 @@ const validate = require('validator');
            response.render("admin/category/index", {categories : data, alert})
 
 
-            } catch (error) {
-                response.redirect("admin/category", { alert : { message: `${error.message}` , status: "danger"} } )
+            } catch (error) { 
+                request.flash("alertMessage", `${error.message}`)
+                request.flash("alertStatus", "danger")
+                response.redirect("admin/category")
             }
         
     }
@@ -70,8 +72,7 @@ const validate = require('validator');
             try {
 
 
-                    const id = validate.trim(request.body.id);
-                    const name = validate.trim(request.body.name);
+                    const {id, name } = validate.trim(request.body);
                     const existsCategory  = await Category.exists({ name })
         
                 if (existsCategory ==  null ){
@@ -101,8 +102,7 @@ const validate = require('validator');
     exports.deleteCategory = async (request,response) => {
 
         try {
-            const id = validate.trim(request.body.id);
-            const name = validate.trim(request.body.name);
+            const {id, name } = validate.trim(request.body);
             await  Category.findOne({_id : id}).remove();
             request.flash("alertMessage", `category "${name}" deleted successfully`);
             request.flash("alertStatus", "success");
