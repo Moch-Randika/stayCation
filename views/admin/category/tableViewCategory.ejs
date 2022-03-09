@@ -22,9 +22,12 @@
                         <td> <%= index + 1 %> </td>
                         <td> <%= category.name %> </td>
                         <td>
-                            <a href="javascript:void()" class="btn btn-warning btn-circle btn-sm  button-edit"><i
+                            <a href="javascript:void()" class="btn btn-warning btn-circle btn-sm  button-edit"
+                                data-id="<%= category.id %>" data-name="<%= category.name %> "><i
                                     class="fas fa-edit"></i></a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                            <a href="javascript:void()" class="btn btn-danger btn-circle btn-sm button-delete"
+                                data-id="<%= category.id %>" data-name="<%= category.name %> "><i
+                                    class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                     <% }) %>
@@ -69,16 +72,42 @@
                 <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/admin/category" method="post">
+            <form action="/admin/category?_method=put" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder=>
+                        <input type="text" class="form-control name" id="name" name="name">
+                        <input type="hidden" class="form-control id" id="id" name="id">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete category-->
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin/category?_method=delete" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">are you sure you want to delete it?</label>
+                        <input type="text" class="form-control name" id="name" name="name" readonly>
+                        <input type="hidden" class="form-control id" id="id" name="id">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
                 </div>
             </form>
         </div>

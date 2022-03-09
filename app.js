@@ -10,6 +10,8 @@ const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
+const methodOverride = require('method-override')
+
 
 /** ----------------------------------------------------- */
 // inisiasi
@@ -26,7 +28,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/public",express.static(path.join(__dirname, '/public')));
 app.use("/sb-admin-2",express.static(path.join(__dirname, '/node_modules/startbootstrap-sb-admin-2')));
-app.use(expressLayouts);
+app.use(expressLayouts); 
+app.use(methodOverride('_method')) // method http put / delete
 
 
 
