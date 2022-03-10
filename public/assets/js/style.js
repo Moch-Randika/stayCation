@@ -1,4 +1,9 @@
 
+    // Replace the <textarea id="editor1"> with a CKEditor 4
+    // instance, using default configuration.
+    CKEDITOR.replace('about');
+
+
 // jquery category  edit
 $("#dataTable").on("click", ".button-edit-Category", function () {
     let id = $(this).data("id");

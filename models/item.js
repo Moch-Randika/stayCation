@@ -22,6 +22,7 @@ const itemSchema = mongoose.Schema({
     },
     isPopular:{
         type: Boolean,
+        default:false
     },
     description:{
         type: String,
@@ -29,7 +30,7 @@ const itemSchema = mongoose.Schema({
     },
     imageId : [{
         type: ObjectId,
-        ref: "Image"
+        ref: "Images"
     }],
     featureId : [{
         type: ObjectId,
@@ -38,6 +39,10 @@ const itemSchema = mongoose.Schema({
     activityId : [{
         type: ObjectId,
         ref: "Activity"
+    }],
+    categoryId : [{
+        type: ObjectId,
+        ref: "Categories"
     }],
 })
 

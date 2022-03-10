@@ -1,6 +1,6 @@
 // import db mongoose 
 const mongoose = require('mongoose');
-
+const {ObjectId} = mongoose.Schema;
 // create table category
 const ActivitySchema = mongoose.Schema({
 
@@ -19,6 +19,10 @@ const ActivitySchema = mongoose.Schema({
     isPopular:{
         type: Boolean,
     },
+    itemId:[{
+        type: ObjectId, //relasi item
+        ref: "Item"
+    }]
 
 })
 

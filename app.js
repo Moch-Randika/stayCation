@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/public",express.static(path.join(__dirname, '/public')));
 app.use("/sb-admin-2",express.static(path.join(__dirname, '/node_modules/startbootstrap-sb-admin-2')));
+app.use("/ckeditor4",express.static(path.join(__dirname, '/node_modules/ckeditor4')));
 app.use(expressLayouts); 
 app.use(methodOverride('_method')) // method http put / delete
 app.use(session({    // alert 
