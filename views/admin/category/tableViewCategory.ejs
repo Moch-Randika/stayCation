@@ -22,10 +22,10 @@
                         <td> <%= index + 1 %> </td>
                         <td> <%= category.name %> </td>
                         <td>
-                            <a href="javascript:void()" class="btn btn-warning btn-circle btn-sm  button-edit"
+                            <a href="javascript:void()" class="btn btn-warning btn-circle btn-sm  button-edit-Category"
                                 data-id="<%= category.id %>" data-name="<%= category.name %> "><i
                                     class="fas fa-edit"></i></a>
-                            <a href="javascript:void()" class="btn btn-danger btn-circle btn-sm button-delete"
+                            <a href="javascript:void()" class="btn btn-danger btn-circle btn-sm button-delete-Category"
                                 data-id="<%= category.id %>" data-name="<%= category.name %> "><i
                                     class="fas fa-trash"></i></a>
                         </td>
@@ -66,7 +66,7 @@
 </div>
 
 <!-- Modal edit category-->
-<div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-modal-category" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -91,7 +91,7 @@
 </div>
 
 <!-- Modal delete category-->
-<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete-modal-category" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -6,7 +6,7 @@ const util = require("util");
 
 const storage = multer.diskStorage({
     destination: (req,file,cb) => {
-      // kirim file ke folder upload
+      // sesuaikan dengan direktori 
       cb(null, _dir_ + "/public/images")
     },
     filename: function (req, file, cb) {
@@ -21,27 +21,25 @@ const storage = multer.diskStorage({
     if (mimeType && extName) {
       return collback(null, true);
     } else {
-      cb("Error: Images Only !!!");
+      cb("Error: Images Only !!!");  // sesuai kan error
     }
   }
 
-// single images
-const singleImage = multer({
+// single File
+const singleFile= multer({
     storage: storage,
-    limits: { fileSize: 1000000 },
+    limits: { fileSize: 1000000 },  // sesuai kan file dalam kb
     fileFilter: checkFileType
-    }
-  ).single("imageUrl");  // file model image
+    }).single("imageUrl");  // sesuaikan dengan Model image 
 
 //   multi image
-  const multipleImage = multer({
+  const multipleFile = multer({
     storage: storage,
-    // limits: { fileSize: 1000000 },
-    fileFilter: function (req, file, cb) {
-      checkFileType(file, cb);
-    }
-  }).array("imageUrl");  // file model image
+    limits: { fileSize: 1000000 }, // sesuai kan file dalam kb
+    fileFilter: checkFileType
+    }).array("imageUrl");   // sesuai kan file dalam kb
   
 
-  const singleImagePromise = util.promisify(singleImage) 
-  module.exports = { singleImagePromise, multipleImage };
+  const singleFilePromise = util.promisify(singleFile) 
+  const MultipleFilePromise = util.promisify(multipleFile) 
+  module.exports = { singleFilePromise, MultipleFilePromise };

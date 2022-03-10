@@ -25,7 +25,8 @@ router.delete("/category",category.deleteCategory)
 
 // endpoint bank
 router.get("/bank",bank.indexBank)
-router.post("/bank",multer.singleImagePromise,bank.createBank)
+router.post("/bank",multer.singleFilePromise,bank.createBank)
+router.put("/bank",multer.singleFilePromise,bank.updateBank)
 
 router.get("/item",item.indexItem)
 router.get("/booking",booking.indexBooking)
