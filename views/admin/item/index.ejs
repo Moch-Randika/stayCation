@@ -1,5 +1,13 @@
 <div class="container-fluid">
 
+    <!-- alert -->
+    <%  if (alert.message != "")  { %>
+    <div class="alert alert-<%= alert.status  %> " role="alert">
+        <%= alert.message  %>
+    </div>
+    <% } %>
+
+
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Item</h1>
 
