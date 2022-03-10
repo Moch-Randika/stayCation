@@ -85,32 +85,54 @@ exports.updateBank = async (request,response) => {
                     response.redirect("/admin/bank");
                 }else{
                     // delete old file 
-                        await fs.unlink(path.join(`public/${bank.imageUrl}`))
-                        bank.nameBank = nameBank;
-                        bank.nomorRekening = nomorRekening;
-                        bank.name = name;
-                        bank.imageUrl = `images/${file.filename}`;
-                        await bank.save();
-                        request.flash("alertMessage", `Bank changed successfully`);
-                        request.flash("alertStatus", "success");
+                    await fs.unlink(path.join(`public/${bank.imageUrl}`))
+                    bank.nameBank = nameBank;
+                    bank.nomorRekening = nomorRekening;
+                    bank.name = name;
+                    bank.imageUrl = `images/${file.filename}`;
+                    await bank.save();
+                    request.flash("alertMessage", `Bank changed successfully`);
+                    request.flash("alertStatus", "success");
                          // redirect
-                        response.redirect("/admin/bank");
+                    response.redirect("/admin/bank");
                 }
         }else{
         // alert
         request.flash("alertMessage", `Nomor Rekening is "${nomorRekening}" already exist`);
-        request.flash("alertStatus", "success");
+        request.flash("alertStatus", "warning");
         // redirect
         response.redirect("/admin/bank")
         }
     } catch (error) {
-         request.flash("alertMessage", `${error.message}`)
+        request.flash("alertMessage", `${error.message}`)
         request.flash("alertStatus", "danger")
         response.redirect("/admin/bank")
     }
     
-    
+}
 
+exports.deleteBank = async (request,response) => {
+
+    try {
+        const id = request.params.id;
+        const nomorRekening = request.body.nomorRekening;
+        const nameBank = request.body.nameBank;
+        console.info(id)
+        console.info(nomorRekening)
+        console.info(nameBank)
+        const bank = await Bank.findOne({ _id:id})
+        // hapus images
+        await fs.unlink(path.join(`public/${bank.imageUrl}`))
+        await bank.remove();
+        request.flash("alertMessage", `Bank deleted ${nameBank} - ${nomorRekening} successfully`);
+        request.flash("alertStatus", "success");
+        // redirect
+        response.redirect("/admin/bank")
+    } catch (error) {
+        request.flash("alertMessage", `${error.message}`)
+        request.flash("alertStatus", "danger")
+        response.redirect("/admin/bank")
+    }
 
 
 

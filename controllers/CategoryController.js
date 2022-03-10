@@ -90,10 +90,11 @@ exports.updateCategory = async (request,response)=> {
 exports.deleteCategory = async (request,response) => {
 
         try {
-            const id = request.body.id;
+            const id = request.params.id;
             const name = request.body.name;
+            console.info(id)
             await  Category.findOne({_id : id}).remove();
-            request.flash("alertMessage", `category "${name}" deleted successfully`);
+            request.flash("alertMessage", `Category "${name}" deleted successfully`);
             request.flash("alertStatus", "success");
             // redirect
             response.redirect("/admin/category");

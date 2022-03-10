@@ -98,12 +98,11 @@
                 <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/admin/category?_method=delete" method="post">
+            <form action="" method="post" id="formCategorydelete">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">are you sure you want to delete it?</label>
                         <input type="text" class="form-control name" id="name" name="name" readonly>
-                        <input type="hidden" class="form-control id" id="id" name="id">
                     </div>
                 </div>
                 <div class="modal-footer">

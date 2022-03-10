@@ -21,12 +21,13 @@ router.get("/dashboard",dashboard.indexDashboard)
 router.get("/category",category.indexCategory)
 router.post("/category",category.createCategory)
 router.put("/category",category.updateCategory)
-router.delete("/category",category.deleteCategory)
+router.delete("/category/:id",category.deleteCategory)
 
 // endpoint bank
 router.get("/bank",bank.indexBank)
 router.post("/bank",multer.singleFilePromise,bank.createBank)
 router.put("/bank",multer.singleFilePromise,bank.updateBank)
+router.delete("/bank/:id",bank.deleteBank);
 
 router.get("/item",item.indexItem)
 router.get("/booking",booking.indexBooking)
