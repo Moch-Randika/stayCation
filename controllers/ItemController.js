@@ -9,12 +9,13 @@ const mongoose = require('mongoose');
 // function 
 exports.indexItem = async (request,response) => {
     try {
+        const items = await Item.find().populate({path: "imageId",select:"id imageUrl", model:"Images"}).populate({path: "categoryId", select:"id name", model:"Categories"}); // relasi in mongo
         const categories = await Category.find();
         // alert 
         const alertMessage = request.flash("alertMessage");
         const alertStatus = request.flash("alertStatus");
         const alert = { message: alertMessage , status: alertStatus}
-        response.render("admin/item/index",{ categories,alert})
+        response.render("admin/item/index",{ categories,alert,items, action:"showItem"})
     } catch (error) {
         request.flash("alertMessage", `${error.message}`)
         request.flash("alertStatus", "danger")
@@ -60,12 +61,29 @@ exports.createdItem = async (request,response) => {
 
         
     } catch (error) {
+       
+    }
+
+}
+
+// view images
+exports.showImages = async(request,response) => {
+
+    try {
+        const {id} = request.params;
+        const item = await Item.findOne({_id:id}).populate({path: "imageId", model:"Images",select:"id imageUrl"}) // relasi in mongo
+        // alert 
+        const alertMessage = request.flash("alertMessage");
+        const alertStatus = request.flash("alertStatus");
+        const alert = { message: alertMessage , status: alertStatus}
+        response.render("admin/item/index",{alert,item, action:"showImage"})
+    } catch (error) {
         request.flash("alertMessage", `${error.message}`)
         request.flash("alertStatus", "danger")
         // redirect
         response.redirect("/admin/item");
     }
 
-}
 
+}
 

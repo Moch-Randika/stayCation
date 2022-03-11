@@ -1,0 +1,24 @@
+<!-- Page Heading -->
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-showItem"
+            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Show Images</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-showItem" role="tabpanel" aria-labelledby="nav-home-tab">
+        <!-- images -->
+        <div class="row">
+            <% for(let x = 0; x < item.imageId.length; x++){ %>
+            <div class="col-md-4">
+                <div class="card shadow mb-4 mt-2">
+                    <div class="card-body">
+                        <img src="/public/<%= item.imageId[x].imageUrl%>" style="width: 100%; display: block;">
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <a href="/admin/item"><button class="btn btn-primary">Back</button></a>
+    </div>
+</div>

@@ -2,7 +2,7 @@
 
 
 // import 
-const Category = require("../models/Category");
+const Categories = require("../models/Category");
 const validate = require('validator');
 const to = require('to-case')
 
@@ -13,7 +13,7 @@ exports.indexCategory = async (request,response) => {
 
             try {
                 // find data
-                const data  = await Category.find();
+                const data  = await Categories.find();
                 // alert 
                 const alertMessage = request.flash("alertMessage");
                 const alertStatus = request.flash("alertStatus");
@@ -32,10 +32,10 @@ exports.createCategory = async (request,response) => {
 
             try{
                const name = to.capital(validate.trim(request.body.name));     
-               const existsCategory =  await Category.exists({ name })
+               const existsCategory =  await Categories.exists({ name })
                if (!existsCategory) {
                     // create data .. 
-                await Category.create({ name });
+                await Categories.create({ name });
                 // alert
                 request.flash("alertMessage", `Add category has been successfully`)
                 request.flash("alertStatus", "success")
@@ -60,9 +60,9 @@ exports.updateCategory = async (request,response)=> {
             try {
                 const id= request.body.id
                 const name = to.capital(validate.trim(request.body.name));
-                const existsCategory  = await Category.exists({ name })
+                const existsCategory  = await Categories.exists({ name })
                 if (!existsCategory){
-                    const categoryId = await Category.findOne({_id : id})
+                    const categoryId = await Categories.findOne({_id : id})
                     categoryId.name = name ;  // find _id : key->id 
                     // overwrite key - name
                     await categoryId.save();
@@ -93,7 +93,7 @@ exports.deleteCategory = async (request,response) => {
             const id = request.params.id;
             const name = request.body.name;
             console.info(id)
-            await  Category.findOne({_id : id}).remove();
+            await  Categories.findOne({_id : id}).remove();
             request.flash("alertMessage", `Category "${name}" deleted successfully`);
             request.flash("alertStatus", "success");
             // redirect

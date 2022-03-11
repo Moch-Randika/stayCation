@@ -7,10 +7,10 @@
     </div>
     <% } %>
 
-
-    <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Item</h1>
-
+    <!-- show item -->
+    <% if( action == "showItem" ){ %>
+    <!-- Page Heading -->
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-showItem"
@@ -27,6 +27,14 @@
             <%- include("addItem")  %>
         </div>
     </div>
+    <% } %>
+
+    <!-- show images -->
+    <% if( action == "showImage" ){ %>
+    <%- include("viewImage")  %>
+
+    <% } %>
+
 
 
 
