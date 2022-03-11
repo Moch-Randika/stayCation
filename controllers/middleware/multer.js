@@ -35,7 +35,7 @@ const singleFile= multer({
 //   multi image
   const multipleFile = multer({
     storage: storage,
-    limits: { fileSize: 1000000 }, // sesuai kan file dalam kb
+    // limits: { fileSize: 1000000 }, // sesuai kan file dalam kb
     fileFilter: checkFileType
     }).array("imageUrl");   // sesuai kan file dalam kb
   
