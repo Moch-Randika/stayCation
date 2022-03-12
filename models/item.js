@@ -40,10 +40,10 @@ const itemSchema = mongoose.Schema({
         type: ObjectId,
         ref: "Activity"
     }],
-    categoryId : [{
+    categoryId : {
         type: ObjectId,
         ref: "Categories"
-    }],
+    },
 })
 
 module.exports = mongoose.model("Item", itemSchema)

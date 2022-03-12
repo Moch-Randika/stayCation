@@ -32,7 +32,9 @@ router.delete("/bank/:id",bank.deleteBank);
 // endpoint item
 router.get("/item",item.indexItem)
 router.post("/item",multer.MultipleFilePromise,item.createdItem)
-router.get("/item/images/:id",item.showImages)
+router.get("/item/images/:id",item.showImages) // show images
+router.get("/item/edit/:id",item.showUpdateItem) // view edit item
+router.put("/item/edit/:id",multer.MultipleFilePromise,item.updatedItem) //  update item
 
 
 router.get("/booking",booking.indexBooking)

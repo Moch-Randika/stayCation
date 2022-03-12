@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 // function 
 exports.indexItem = async (request,response) => {
     try {
-        const items = await Item.find().populate({path: "imageId",select:"id imageUrl", model:"Images"}).populate({path: "categoryId", select:"id name", model:"Categories"}); // relasi in mongo
+        const items = await Item.find();
         const categories = await Category.find();
         // alert 
         const alertMessage = request.flash("alertMessage");
@@ -57,14 +57,69 @@ exports.createdItem = async (request,response) => {
             // redirect
             response.redirect("/admin/item");
         }
-
-
-        
     } catch (error) {
-       
+        request.flash("alertMessage", `${error.message}`)
+        request.flash("alertStatus", "danger")
+        // redirect
+        response.redirect("/admin/item");
     }
 
 }
+
+exports.showUpdateItem =  async (request,response) => {
+
+    try {
+        const {id} = request.params;
+        const item = await Item.findOne({_id:id}).populate({path: "categoryId", model:"Categories",select:"id name"})
+        const categories = await Category.find();
+        const alertMessage = request.flash("alertMessage");
+        const alertStatus = request.flash("alertStatus");
+        const alert = { message: alertMessage , status: alertStatus}
+        response.render("admin/item/index",{item,alert,categories,action: "editItem"})
+        
+    } catch (error) {
+        request.flash("alertMessage", `${error.message}`)
+        request.flash("alertStatus", "danger")
+        // redirect
+        response.redirect("/admin/item");
+    }
+
+
+}
+
+exports.updatedItem = async (request,response) => {
+
+    try {
+    const {id} = request.params;
+    const file =  request.files;
+    const { title,price,city,categoryId,about } = request.body;
+    const item = await Item.findOne({_id:id}).populate({path: "categoryId", model:"Categories",select:"id name"});
+         if( file.length > 0 ){
+
+
+        } else {
+            item.title = title
+            item.price = price
+            item.city = city 
+            item.categoryId = categoryId
+            item.description = about
+            await item.save();
+            request.flash("alertMessage", `Update Item has been successfully`)
+            request.flash("alertStatus", "success")
+            // redirect
+            response.redirect("/admin/item");
+        }
+    } catch (error) {
+        request.flash("alertMessage", `${error.message}`)
+        request.flash("alertStatus", "danger")
+        // redirect
+        response.redirect("/admin/item");
+    }
+    
+
+}
+
+
 
 // view images
 exports.showImages = async(request,response) => {

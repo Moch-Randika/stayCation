@@ -1,0 +1,52 @@
+<!-- Page Heading -->
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-showImage"
+            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Edit - <%= item.title  %>
+        </button>
+    </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-showImage" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="card shadow mb-4 mt-2">
+            <div class="card-body">
+                <form action="/admin/item/edit/<%= item.id %>?_method=put" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Title</label>
+                        <input type="text" class="form-control" name="title" value="<%= item.title %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Price</label>
+                        <input type="number" class="form-control" name="price" value="<%= item.price %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">City</label>
+                        <input type="text" class="form-control" name="city" value="<%= item.city %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Category</label>
+                        <select class="form-control" name="categoryId">
+                            <option value="<%= item.categoryId.id  %>"><%= item.categoryId.name  %></option>
+                            <% for( let index = 0 ; index < categories.length ; index++) { %>
+                            <% if ( categories[index].id == item.categoryId.id  ) {
+                                continue;
+                            } %>
+                            <option value="<%= categories[index].id %>"><%= categories[index].name  %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Image</label>
+                        <input type="file" class="form-control" id="imageUrl" name="imageUrl" multiple>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Description</label>
+                        <textarea name="about" class="form-control" id="about"><%= item.description  %></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
