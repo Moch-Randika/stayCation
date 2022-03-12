@@ -7,31 +7,15 @@
     </div>
     <% } %>
 
-    <h1 class="h3 mb-4 text-gray-800">Item</h1>
+    <h1 class="h3 mb-4 text-gray-800">Village</h1>
     <!-- show item -->
-    <% if( action == "showItem" ){ %>
-    <!-- Page Heading -->
-    <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-showItem"
-                type="button" role="tab" aria-controls="nav-home" aria-selected="true">Show Item</button>
-            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-addItem"
-                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Add Item</button>
-        </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-showItem" role="tabpanel" aria-labelledby="nav-home-tab">
-            <%- include("tableViewitem")  %>
-        </div>
-        <div class="tab-pane fade" id="nav-addItem" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <%- include("addItem")  %>
-        </div>
-    </div>
+    <% if( action == "show_item" ){ %>
+    <%- include("table_view_item")  %>
     <% } %>
 
-    <!-- show images -->
-    <% if( action == "showImage" ){ %>
-    <%- include("viewImage")  %>
+    <!-- show detail item -->
+    <% if( action == "show_detail_image" ){ %>
+    <%- include("view_detail_item")  %>
 
     <% } %>
 

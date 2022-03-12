@@ -1,0 +1,93 @@
+<div class="card shadow mb-4 mt-2">
+    <div class="card-header py-3">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add-modal">
+            <i class="fas fa-plus"></i> Add Village
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%   items.forEach( (item,index)=> { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= item.title %></td>
+                        <td><%= item.price %></td>
+                        <td><%= item.country %></td>
+                        <td><%= item.city %></td>
+                        <td>
+                            <a href="/admin/item/detail/<%= item.id  %>" class="btn btn-success btn-circle btn-sm"><i
+                                    class="fas fa-images"></i></a>
+                            <a href="/admin/item/edit/<%= item.id  %>" class="btn btn-warning btn-circle btn-sm"><i
+                                    class="fas fa-edit"></i></a>
+                            <a href="javascript:void()" class="btn btn-danger btn-circle btn-sm"><i
+                                    class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    <%  })  %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal add Item -->
+<div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Village</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin/item" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Enter title..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Price</label>
+                        <input type="number" class="form-control" name="price" placeholder="Enter price..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">City</label>
+                        <input type="text" class="form-control" name="city" placeholder="Enter city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Category</label>
+                        <select class="form-control" name="categoryId">
+                            <option value="">--- Category ---</option>
+                            <% categories.forEach( (category) => {   %>
+                            <option value="<%= category.id %>"><%= category.name %> </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Image</label>
+                        <input type="file" class="form-control" id="imageUrl" name="imageUrl" multiple>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Description</label>
+                        <textarea name="about" class="form-control" id="about"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

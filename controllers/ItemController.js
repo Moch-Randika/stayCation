@@ -15,7 +15,7 @@ exports.indexItem = async (request,response) => {
         const alertMessage = request.flash("alertMessage");
         const alertStatus = request.flash("alertStatus");
         const alert = { message: alertMessage , status: alertStatus}
-        response.render("admin/item/index",{ categories,alert,items, action:"showItem"})
+        response.render("admin/item/index",{ categories,alert,items, action:"show_item"})
     } catch (error) {
         request.flash("alertMessage", `${error.message}`)
         request.flash("alertStatus", "danger")
@@ -30,9 +30,9 @@ exports.createdItem = async (request,response) => {
     try {
         const { title,price,city,categoryId,about } = request.body
         const files = request.files;
+        const category = await Category.findOne({ _id: categoryId })
         // cek files
         if( files.length > 0 ){
-            const category = await Category.findOne({ _id: categoryId })
             const item = await Item.create({
                 title,
                 price,
@@ -40,17 +40,32 @@ exports.createdItem = async (request,response) => {
                 description: about,
                 categoryId : category._id
             })
-            
             category.itemId.push({_id:item._id})
             category.save();
-
+            // image
             for (let index = 0; index < files.length; index++) {
-
                 const image = await Images.create({imageUrl: `/images/${files[index].filename}`})
                 item.imageId.push({_id:image._id})
+                image.itemId.push({_id: item._id})
                 await item.save()
+                await image.save()
                 
             }
+            // alert
+            request.flash("alertMessage", `Add Item has been successfully`)
+            request.flash("alertStatus", "success")
+            // redirect
+            response.redirect("/admin/item");
+        }else {
+            const item = await Item.create({
+                title,
+                price,
+                city,
+                description: about,
+                categoryId : category._id
+            })
+            category.itemId.push({_id:item._id})
+            category.save();
             // alert
             request.flash("alertMessage", `Add Item has been successfully`)
             request.flash("alertStatus", "success")
@@ -126,12 +141,12 @@ exports.showImages = async(request,response) => {
 
     try {
         const {id} = request.params;
-        const item = await Item.findOne({_id:id}).populate({path: "imageId", model:"Images",select:"id imageUrl"}) // relasi in mongo
+        const item = await Item.findOne({_id:id}).populate({path: "imageId", model:"Images",select:"id imageUrl"}).populate({path: "categoryId", model:"Categories",select:"id name"}); // relasi in mongo
         // alert 
         const alertMessage = request.flash("alertMessage");
         const alertStatus = request.flash("alertStatus");
         const alert = { message: alertMessage , status: alertStatus}
-        response.render("admin/item/index",{alert,item, action:"showImage"})
+        response.render("admin/item/index",{alert,item, action:"show_detail_image"})
     } catch (error) {
         request.flash("alertMessage", `${error.message}`)
         request.flash("alertStatus", "danger")

@@ -1,0 +1,166 @@
+<!-- Page Heading -->
+<div class="card shadow mb-4 mt-2">
+    <div class="card-header py-3">
+        <h5> Detail - <%= item.title  %></h5>
+    </div>
+    <div class="card-body">
+
+        <p class="fs-3 text-center"><%= item.title  %></p>
+
+
+        <div id="carouselExampleControls" class="carousel" data-bs-ride="carousel">
+            <div class="carousel-inner d-flex justify-content-center">
+                <% for(let x = 0; x < item.imageId.length; x++){ %>
+                <div class="carousel-item p-3">
+                    <div class="card">
+                        <div class="img-wrapper"><img src="/public/<%= item.imageId[x].imageUrl%>" class="d-block w-100"
+                                alt="..."> </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <hr />
+
+
+        <div class="table-borderless">
+            <table class="table" style=" margin-right: 0px; margin-left: auto;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p class="fst-normal">Title</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal">:</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal"><%= item.title  %></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="fst-normal">Price</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal">:</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal"><%= item.price  %></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="fst-normal">Country</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal">:</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal"><%= item.country  %></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="fst-normal">City</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal">:</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal"><%= item.city  %></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="fst-normal">Category</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal">:</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal"><%= item.categoryId.name %></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="fst-normal">Description</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal">:</p>
+                        </td>
+                        <td>
+                            <p class="fst-normal"><%- item.description %></p>
+                        </td>
+                    </tr>
+            </table>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+<a href="/admin/item"><button class="btn btn-primary">Back</button></a>
+<a href="javascript:void()" id="itemUpdate"><button class="btn btn-warning button-update-item"
+        data-title="<%= item.title  %>" data-price="<%= item.price %>" data-country="<%= item.country%>"
+        data-city="<%= item.city %>" data-description="<%= item.description  %>"
+        data-categoryid="<%= item.categoryId %>">Update</button></a>
+
+
+
+
+<!-- Modal edit Item -->
+<div class="modal fade" id="button-update-item" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Village</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin/item" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Title</label>
+                        <input type="text" class="form-control title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Price</label>
+                        <input type="number" class="form-control price" name="price">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">City</label>
+                        <input type="text" class="form-control city" name="city">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Category</label>
+                        <select class="form-control" name="categoryId">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Image</label>
+                        <input type="file" class="form-control" id="imageUrl" name="imageUrl" multiple>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Description</label>
+                        <textarea name="about" class="form-control about" id="about"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
